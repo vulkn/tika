@@ -54,7 +54,7 @@ public class TikaCLITest {
 
     /**
      * Tests --list-parser-detail option of the cli
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -66,7 +66,7 @@ public class TikaCLITest {
 
     /**
      * Tests --list-parser option of the cli
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -79,7 +79,7 @@ public class TikaCLITest {
 
     /**
      * Tests -x option of the cli
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -97,7 +97,7 @@ public class TikaCLITest {
 
     /**
      * Tests a -h option of the cli
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -116,7 +116,7 @@ public class TikaCLITest {
 
     /**
      * Tests -t option of the cli
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -145,7 +145,7 @@ public class TikaCLITest {
 
     /**
      * Basic tests for -json option
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -155,7 +155,7 @@ public class TikaCLITest {
         String json = outContent.toString(UTF_8.name());
         //TIKA-1310
         assertTrue(json.contains("\"fb:admins\":\"1,2,3,4\","));
-        
+
         //test legacy alphabetic sort of keys
         int enc = json.indexOf("\"Content-Encoding\"");
         int fb = json.indexOf("fb:admins");
@@ -190,7 +190,7 @@ public class TikaCLITest {
 
     /**
      * Tests -l option of the cli
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -202,7 +202,7 @@ public class TikaCLITest {
 
     /**
      * Tests -d option of the cli
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -214,7 +214,7 @@ public class TikaCLITest {
 
     /**
      * Tests --list-met-models option of the cli
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -226,7 +226,7 @@ public class TikaCLITest {
 
     /**
      * Tests --list-supported-types option of the cli
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -327,17 +327,6 @@ public class TikaCLITest {
         );
     }
 
-    // TIKA-920
-    @Test
-    public void testMultiValuedMetadata() throws Exception {
-        String[] params = {"-m", resourcePrefix + "testMultipleSheets.numbers"};
-        TikaCLI.main(params);
-        String content = outContent.toString(UTF_8.name());
-        assertTrue(content.contains("sheetNames: Checking"));
-        assertTrue(content.contains("sheetNames: Secon sheet"));
-        assertTrue(content.contains("sheetNames: Logical Sheet 3"));
-        assertTrue(content.contains("sheetNames: Sheet 4"));
-    }
 
     // TIKA-1031
     @Test

@@ -33,15 +33,11 @@ public class ServiceLoaderUtilsTest extends TikaTest {
         //be preferred.
         DefaultParser defaultParser = new DefaultParser();
         int vorbisIndex = -1;
-        int fictIndex = -1;
         int dcxmlIndex = -1;
         int i = 0;
         for (Parser p : defaultParser.getAllComponentParsers()) {
             if ("class org.gagravarr.tika.VorbisParser".equals(p.getClass().toString())) {
                 vorbisIndex = i;
-            }
-            if ("class org.apache.tika.parser.xml.FictionBookParser".equals(p.getClass().toString())) {
-                fictIndex = i;
             }
             if ("class org.apache.tika.parser.xml.DcXMLParser".equals(p.getClass().toString())) {
                 dcxmlIndex = i;
@@ -49,9 +45,7 @@ public class ServiceLoaderUtilsTest extends TikaTest {
             i++;
         }
 
-        assertNotEquals(vorbisIndex, fictIndex);
-        assertNotEquals(fictIndex, dcxmlIndex);
-        assertTrue(vorbisIndex > fictIndex);
-        assertTrue(fictIndex > dcxmlIndex);
+        assertNotEquals(vorbisIndex, dcxmlIndex);
+        assertTrue(vorbisIndex > dcxmlIndex);
     }
 }

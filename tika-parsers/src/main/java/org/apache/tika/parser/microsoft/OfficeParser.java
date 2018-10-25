@@ -193,12 +193,6 @@ public class OfficeParser extends AbstractOfficeParser {
                     xhtml.element("p", text);
                 }
                 break;
-            case OUTLOOK:
-                OutlookExtractor extractor =
-                        new OutlookExtractor(root, context);
-
-                extractor.parse(xhtml, metadata);
-                break;
             case ENCRYPTED:
                 EncryptionInfo info = new EncryptionInfo(root);
                 Decryptor d = Decryptor.getInstance(info);

@@ -57,23 +57,18 @@ public class AutoDetectParserTest extends TikaTest {
     private static final String HTML       = "text/html; charset=ISO-8859-1";
     private static final String PDF        = "application/pdf";
     private static final String POWERPOINT = "application/vnd.ms-powerpoint";
-    private static final String KEYNOTE    = "application/vnd.apple.keynote";
-    private static final String PAGES      = "application/vnd.apple.pages";
-    private static final String NUMBERS    = "application/vnd.apple.numbers";
-    private static final String CHM        = "application/vnd.ms-htmlhelp";
     private static final String RTF        = "application/rtf";
     private static final String PLAINTEXT  = "text/plain; charset=ISO-8859-1";
     private static final String UTF8TEXT   = "text/plain; charset=UTF-8";
     private static final String WORD       = "application/msword";
     private static final String XML        = "application/xml";
-    private static final String RSS        = "application/rss+xml";
     private static final String BMP        = "image/bmp";
     private static final String GIF        = "image/gif";
     private static final String JPEG       = "image/jpeg";
     private static final String PNG        = "image/png";
     private static final String OGG_VORBIS = "audio/vorbis";
     private static final String OGG_OPUS   = "audio/opus";
-    private static final String OGG_FLAC   = "audio/x-oggflac"; 
+    private static final String OGG_FLAC   = "audio/x-oggflac";
     private static final String FLAC_NATIVE= "audio/x-flac";
     private static final String OPENOFFICE
             = "application/vnd.oasis.opendocument.text";
@@ -156,26 +151,6 @@ public class AutoDetectParserTest extends TikaTest {
     }
 
     @Test
-    public void testKeynote() throws Exception {
-        assertAutoDetect("testKeynote.key", KEYNOTE, "A sample presentation");
-    }
-
-    @Test
-    public void testPages() throws Exception {
-        assertAutoDetect("testPages.pages", PAGES, "Sample pages document");
-    }
-
-    @Test
-    public void testNumbers() throws Exception {
-        assertAutoDetect("testNumbers.numbers", NUMBERS, "Checking Account: 300545668");
-    }
-
-    @Test
-    public void testChm() throws Exception {
-        assertAutoDetect("testChm.chm", CHM, "If you do not specify a window type or a window name, the main window is used.");
-    }
-
-    @Test
     public void testEpub() throws Exception {
         assertAutoDetect(
                 "testEPUB.epub", "application/epub+zip",
@@ -223,7 +198,7 @@ public class AutoDetectParserTest extends TikaTest {
     public void testText() throws Exception {
         assertAutoDetect("testTXT.txt", PLAINTEXT, "indexation de Txt");
     }
-    
+
     @Test
     public void testTextNonASCIIUTF8() throws Exception {
         assertAutoDetect("testTXTNonASCIIUTF8.txt", UTF8TEXT, "The quick brown fox jumps over the lazy dog");
@@ -239,11 +214,6 @@ public class AutoDetectParserTest extends TikaTest {
         assertAutoDetect("testXML.xml", XML, "Lius");
     }
 
-    @Test
-    public void testRss() throws Exception {
-        assertAutoDetect("/test-documents/rsstest.rss", "feed", RSS, "application/rss+xml", "Sample RSS File for Junit test");
-    }
-    
     @Test
     public void testImages() throws Exception {
        assertAutoDetect("testBMP.bmp", BMP, null);
@@ -306,28 +276,28 @@ public class AutoDetectParserTest extends TikaTest {
                MediaType.parse(OGG_VORBIS), MediaType.parse(FLAC_NATIVE),
                MediaType.parse(OGG_FLAC), MediaType.parse(OGG_OPUS)
        };
-       
+
        // Check we can load the parsers, and they claim to do the right things
        VorbisParser vParser = new VorbisParser();
-       assertNotNull("Parser not found for " + mediaTypes[0], 
+       assertNotNull("Parser not found for " + mediaTypes[0],
                      vParser.getSupportedTypes(new ParseContext()));
-       
+
        FlacParser fParser = new FlacParser();
-       assertNotNull("Parser not found for " + mediaTypes[1], 
+       assertNotNull("Parser not found for " + mediaTypes[1],
                      fParser.getSupportedTypes(new ParseContext()));
-       assertNotNull("Parser not found for " + mediaTypes[2], 
+       assertNotNull("Parser not found for " + mediaTypes[2],
                      fParser.getSupportedTypes(new ParseContext()));
-       
+
        OpusParser oParser = new OpusParser();
-       assertNotNull("Parser not found for " + mediaTypes[3], 
+       assertNotNull("Parser not found for " + mediaTypes[3],
                      oParser.getSupportedTypes(new ParseContext()));
-       
+
        // Check we found the parser
        CompositeParser parser = (CompositeParser)tika.getParser();
        for (MediaType mt : mediaTypes) {
           assertNotNull("Parser not found for " + mt, parser.getParsers().get(mt) );
        }
-       
+
        // Have each file parsed, and check
        for (int i=0; i<testFiles.length; i++) {
            String file = testFiles[i];
@@ -366,7 +336,7 @@ public class AutoDetectParserTest extends TikaTest {
            }
        }
     }
-    
+
     /**
      * Test case for TIKA-514. Provide constructor for AutoDetectParser that has explicit
      * list of supported parsers.
@@ -375,11 +345,11 @@ public class AutoDetectParserTest extends TikaTest {
     @Test
     public void testSpecificParserList() throws Exception {
         AutoDetectParser parser = new AutoDetectParser(new MyDetector(), new MyParser());
-        
+
         InputStream is = new ByteArrayInputStream("test".getBytes(UTF_8));
         Metadata metadata = new Metadata();
         parser.parse(is, new BodyContentHandler(), metadata, new ParseContext());
-        
+
         assertEquals("value", metadata.get("MyParser"));
     }
 
@@ -413,7 +383,7 @@ public class AutoDetectParserTest extends TikaTest {
     }
 
     private static final MediaType MY_MEDIA_TYPE = new MediaType("application", "x-myparser");
-    
+
     /**
      * A test detector which always returns the type supported
      *  by the test parser
@@ -424,7 +394,7 @@ public class AutoDetectParserTest extends TikaTest {
             return MY_MEDIA_TYPE;
         }
     }
-    
+
     @SuppressWarnings("serial")
     private static class MyParser extends AbstractParser {
         public Set<MediaType> getSupportedTypes(ParseContext context) {
@@ -438,7 +408,7 @@ public class AutoDetectParserTest extends TikaTest {
         }
 
     }
-    
+
     /**
      * Minimal class to encapsulate all parameters -- the main reason for
      * its existence is to aid in debugging via its toString() method.

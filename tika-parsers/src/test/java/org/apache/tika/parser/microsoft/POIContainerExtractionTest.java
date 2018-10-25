@@ -45,7 +45,7 @@ public class POIContainerExtractionTest extends AbstractPOIContainerExtractionTe
 
         String[] files = new String[]{
                 "testEXCEL.xls", "testWORD.doc", "testPPT.ppt",
-                "testVISIO.vsd", "test-outlook.msg"
+                "testVISIO.vsd"
         };
         for (String file : files) {
             // Process it without recursing
@@ -301,30 +301,6 @@ public class POIContainerExtractionTest extends AbstractPOIContainerExtractionTe
 
         assertEquals(TYPE_EMF, handler.mediaTypes.get(0)); // Icon of embedded pdf
         assertEquals(TYPE_PDF, handler.mediaTypes.get(1)); // The embedded PDF itself
-
-
-        // Outlook with a text file and a word document
-        handler = process("testMSG_att_doc.msg", extractor, true);
-        assertEquals(2, handler.filenames.size());
-        assertEquals(2, handler.mediaTypes.size());
-
-        assertEquals("test-unicode.doc", handler.filenames.get(0));
-        assertEquals(TYPE_DOC, handler.mediaTypes.get(0));
-
-        assertEquals("pj1.txt", handler.filenames.get(1));
-        assertEquals(TYPE_TXT, handler.mediaTypes.get(1));
-
-
-        // Outlook with a pdf and another outlook message
-        handler = process("testMSG_att_msg.msg", extractor, true);
-        assertEquals(2, handler.filenames.size());
-        assertEquals(2, handler.mediaTypes.size());
-
-        assertEquals("__substg1.0_3701000D.msg", handler.filenames.get(0));
-        assertEquals(TYPE_MSG, handler.mediaTypes.get(0));
-
-        assertEquals("smbprn.00009008.KdcPjl.pdf", handler.filenames.get(1));
-        assertEquals(TYPE_PDF, handler.mediaTypes.get(1));
     }
 
     @Test
