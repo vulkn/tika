@@ -175,4 +175,11 @@
     <system>Jenkins</system>
     <url>https://builds.apache.org/job/Tika-trunk/</url>
   </ciManagement>
+  <distributionManagement>
+    <repository>
+      <id>bintray-vulkn-Tika</id>
+      <name>vulkn-Tika</name>
+      <url>https://api.bintray.com/maven/vulkn/Tika/tika-core/;publish=1</url>
+    </repository>
+  </distributionManagement>
 </project>

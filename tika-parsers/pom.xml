@@ -836,6 +836,14 @@
     <url>https://builds.apache.org/job/Tika-trunk/</url>
   </ciManagement>
 
+  <distributionManagement>
+    <repository>
+      <id>bintray-vulkn-Tika</id>
+      <name>vulkn-Tika</name>
+      <url>https://api.bintray.com/maven/vulkn/Tika/tika-parsers/;publish=1</url>
+    </repository>
+  </distributionManagement>
+
   <profiles>
     <profile>
       <id>testSetup</id>
